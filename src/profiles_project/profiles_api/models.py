@@ -75,6 +75,9 @@ class UserProfile(AbstractBaseUser, PermissionsMixin):
 class ProfileFeedItem(models.Model):
     """ Profile status update. """
 
+    # use ForeignKey creates a link from this field to field in other model
+    # So in this case we are linking to UserProfile in UserProfile.
+    # The cascade says if the link isn't there then delete the link
     user_profile = models.ForeignKey('UserProfile', on_delete=models.CASCADE)
     status_text = models.CharField(max_length=255)
     created_on = models.DateTimeField(auto_now_add=True)
@@ -83,4 +86,3 @@ class ProfileFeedItem(models.Model):
         """ Return the model as a string. """
 
         return self.status_text
-        
